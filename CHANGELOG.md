@@ -1,3 +1,7 @@
+## 0.0.3+3
+
+- When orientation changed, close the menu
+
 ## 0.0.3
 
 - Close menu when other area is touched.

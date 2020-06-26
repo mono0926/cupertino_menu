@@ -20,6 +20,7 @@ class _CupertinoPopupMenuButtonState extends State<CupertinoPopupMenuButton>
   var _isOpened = false;
   AnimationController _animationController;
   Animation<Matrix4> _transformAnimation;
+  Orientation _orientation;
 
   @override
   void initState() {
@@ -38,6 +39,16 @@ class _CupertinoPopupMenuButtonState extends State<CupertinoPopupMenuButton>
             end: Matrix4.identity(),
           ),
         );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final orientation = MediaQuery.of(context).orientation;
+    if (_orientation != null && _orientation != orientation) {
+      _close();
+    }
+    _orientation = orientation;
   }
 
   @override
@@ -106,17 +117,16 @@ class _CupertinoPopupMenuButtonState extends State<CupertinoPopupMenuButton>
         ),
         child: IconButton(
           icon: const Icon(CupertinoIcons.ellipsis),
-          onPressed: () {
-            if (!_isOpened) {
-              _open();
-            }
-          },
+          onPressed: _open,
         ),
       ),
     );
   }
 
   void _open() {
+    if (_isOpened) {
+      return;
+    }
     setState(() {
       _isOpened = true;
     });
@@ -126,6 +136,9 @@ class _CupertinoPopupMenuButtonState extends State<CupertinoPopupMenuButton>
   }
 
   Future<void> _close() async {
+    if (!_isOpened) {
+      return;
+    }
     _animationController.duration = const Duration(milliseconds: 200);
     await _animationController.reverse();
     setState(() {
