@@ -108,7 +108,9 @@ class _CupertinoPopupMenuButtonState extends State<CupertinoPopupMenuButton>
         child: IconButton(
           icon: const Icon(CupertinoIcons.ellipsis),
           onPressed: () {
-            _isOpened ? _close() : _open();
+            if (!_isOpened) {
+              _open();
+            }
           },
         ),
       ),
