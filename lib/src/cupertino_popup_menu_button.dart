@@ -80,7 +80,6 @@ class _CupertinoPopupMenuButtonState extends State<CupertinoPopupMenuButton>
           },
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.17),
@@ -91,7 +90,7 @@ class _CupertinoPopupMenuButtonState extends State<CupertinoPopupMenuButton>
             ),
             width: 250,
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(12),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: widget.actions
