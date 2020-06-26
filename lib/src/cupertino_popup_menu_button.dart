@@ -79,6 +79,7 @@ class _CupertinoPopupMenuButtonState extends State<CupertinoPopupMenuButton>
             );
           },
           child: Container(
+            width: 250,
             decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
@@ -88,7 +89,6 @@ class _CupertinoPopupMenuButtonState extends State<CupertinoPopupMenuButton>
                 ),
               ],
             ),
-            width: 250,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: Column(
