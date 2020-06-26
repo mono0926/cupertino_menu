@@ -14,7 +14,7 @@ dependencies:
   enum_to_string:
   freezed_annotation:
   json_annotation:
-  mono_kit:
+  mono_kit: ^0.16.0-dev
   provider:
   rxdart:
   vsync_provider:
