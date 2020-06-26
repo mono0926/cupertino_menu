@@ -8,7 +8,7 @@ class CupertinoPopupMenuButton extends StatefulWidget {
     @required this.actions,
   }) : super(key: key);
 
-  final List<CupertinoContextMenuAction> actions;
+  final List<CupertinoPopupMenuButtonAction> actions;
 
   @override
   _CupertinoPopupMenuButtonState createState() =>
@@ -25,15 +25,7 @@ class _CupertinoPopupMenuButtonState extends State<CupertinoPopupMenuButton>
   void initState() {
     super.initState();
 
-    _animationController = AnimationController(
-      vsync: this,
-    )..addListener(() {
-        if (_animationController.isDismissed) {
-          setState(() {
-            _isOpened = false;
-          });
-        }
-      });
+    _animationController = AnimationController(vsync: this);
 
     _transformAnimation = _animationController
         .drive(
@@ -94,22 +86,55 @@ class _CupertinoPopupMenuButtonState extends State<CupertinoPopupMenuButton>
       child: IconButton(
         icon: const Icon(CupertinoIcons.ellipsis),
         onPressed: () {
-          setState(() {
-            if (_animationController.isCompleted) {
-              _animationController
-                ..duration = const Duration(milliseconds: 200)
-                ..reverse();
-            } else {
-              setState(() {
-                _isOpened = true;
-              });
-              _animationController
-                ..duration = const Duration(milliseconds: 300)
-                ..forward();
-            }
-          });
+          _isOpened ? _close() : _open();
         },
       ),
+    );
+  }
+
+  void _open() {
+    setState(() {
+      _isOpened = true;
+    });
+    _animationController
+      ..duration = const Duration(milliseconds: 300)
+      ..forward();
+  }
+
+  Future<void> _close() async {
+    _animationController.duration = const Duration(milliseconds: 200);
+    await _animationController.reverse();
+    setState(() {
+      _isOpened = false;
+    });
+  }
+}
+
+class CupertinoPopupMenuButtonAction extends StatelessWidget {
+  const CupertinoPopupMenuButtonAction({
+    Key key,
+    @required this.child,
+    this.isDefaultAction = false,
+    this.isDestructiveAction = false,
+    this.onPressed,
+    this.trailingIcon,
+  }) : super(key: key);
+
+  final Widget child;
+  final bool isDefaultAction;
+  final bool isDestructiveAction;
+  final VoidCallback onPressed;
+  final IconData trailingIcon;
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoContextMenuAction(
+      key: key,
+      child: child,
+      isDefaultAction: isDefaultAction,
+      isDestructiveAction: isDestructiveAction,
+      onPressed: onPressed,
+      trailingIcon: trailingIcon,
     );
   }
 }

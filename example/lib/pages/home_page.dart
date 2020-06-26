@@ -1,4 +1,5 @@
 import 'package:cupertino_menu/cupertino_menu.dart';
+import 'package:example/util/util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -12,22 +13,22 @@ class HomePage extends StatelessWidget {
         actions: [
           CupertinoPopupMenuButton(
             actions: [
-              CupertinoContextMenuAction(
+              CupertinoPopupMenuButtonAction(
                 child: const Text('Select'),
                 trailingIcon: CupertinoIcons.check_mark_circled,
-                onPressed: () {},
+                onPressed: () => logger.info('Select tapped'),
               ),
-              CupertinoContextMenuAction(
+              CupertinoPopupMenuButtonAction(
                 child: const Text('New Folder'),
                 trailingIcon: CupertinoIcons.folder,
                 onPressed: () {},
               ),
-              CupertinoContextMenuAction(
+              CupertinoPopupMenuButtonAction(
                 child: const Text('Scan Documents'),
                 trailingIcon: CupertinoIcons.photo_camera,
                 onPressed: () {},
               ),
-              CupertinoContextMenuAction(
+              CupertinoPopupMenuButtonAction(
                 child: const Text('Connect to Server'),
                 trailingIcon: CupertinoIcons.collections,
                 onPressed: () {},
