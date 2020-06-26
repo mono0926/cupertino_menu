@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
       ),
       body: ListView(
         children: List.filled(
-          10,
+          30,
           ListTile(
             leading: const Icon(Icons.account_circle),
             title: const Text('Hello'),

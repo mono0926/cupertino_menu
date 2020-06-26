@@ -1,3 +1,7 @@
+## 0.0.3
+
+- Close menu when other area is touched.
+
 ## 0.0.2
 
 - Add CupertinoPopupMenuButton

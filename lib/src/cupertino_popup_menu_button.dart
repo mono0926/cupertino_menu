@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_portal/flutter_portal.dart';
+import 'package:flutter/gestures.dart';
 
 class CupertinoPopupMenuButton extends StatefulWidget {
   const CupertinoPopupMenuButton({
@@ -51,56 +52,65 @@ class _CupertinoPopupMenuButtonState extends State<CupertinoPopupMenuButton>
   Widget build(BuildContext context) {
     return PortalEntry(
       visible: _isOpened,
-      childAnchor: Alignment.bottomRight,
-      portalAnchor: const Alignment(1.05, -0.95),
-      portal: AnimatedBuilder(
-        animation: _transformAnimation,
-        builder: (context, child) {
-          return Transform(
-            transform: _transformAnimation.value,
-            alignment: const Alignment(0.9, -1),
-            child: child,
-          );
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.17),
-                blurRadius: 80,
-                spreadRadius: 10,
+      portal: Center(
+        child: GestureDetector(
+          onTapDown: (_) => _close(),
+          behavior: HitTestBehavior.translucent,
+        ),
+      ),
+      child: PortalEntry(
+        visible: _isOpened,
+        childAnchor: Alignment.bottomRight,
+        portalAnchor: const Alignment(1.05, -0.95),
+        portal: AnimatedBuilder(
+          animation: _transformAnimation,
+          builder: (context, child) {
+            return Transform(
+              transform: _transformAnimation.value,
+              alignment: const Alignment(0.9, -1),
+              child: child,
+            );
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.17),
+                  blurRadius: 80,
+                  spreadRadius: 10,
+                ),
+              ],
+            ),
+            width: 250,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: widget.actions
+                    .map(
+                      (action) => CupertinoContextMenuAction(
+                        child: action.child,
+                        isDefaultAction: action.isDefaultAction,
+                        isDestructiveAction: action.isDestructiveAction,
+                        onPressed: () {
+                          _close();
+                          action.onPressed();
+                        },
+                        trailingIcon: action.trailingIcon,
+                      ),
+                    )
+                    .toList(),
               ),
-            ],
-          ),
-          width: 250,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: widget.actions
-                  .map(
-                    (action) => CupertinoContextMenuAction(
-                      child: action.child,
-                      isDefaultAction: action.isDefaultAction,
-                      isDestructiveAction: action.isDestructiveAction,
-                      onPressed: () {
-                        _close();
-                        action.onPressed();
-                      },
-                      trailingIcon: action.trailingIcon,
-                    ),
-                  )
-                  .toList(),
             ),
           ),
         ),
-      ),
-      child: IconButton(
-        icon: const Icon(CupertinoIcons.ellipsis),
-        onPressed: () {
-          _isOpened ? _close() : _open();
-        },
+        child: IconButton(
+          icon: const Icon(CupertinoIcons.ellipsis),
+          onPressed: () {
+            _isOpened ? _close() : _open();
+          },
+        ),
       ),
     );
   }
@@ -137,4 +147,11 @@ class CupertinoPopupMenuButtonAction {
   final bool isDestructiveAction;
   final VoidCallback onPressed;
   final IconData trailingIcon;
+}
+
+class AllowMultipleGestureRecognizer extends TapGestureRecognizer {
+  @override
+  void rejectGesture(int pointer) {
+    acceptGesture(pointer);
+  }
 }
