@@ -62,10 +62,8 @@ class _CupertinoPopupMenuButtonState extends State<CupertinoPopupMenuButton>
   Widget build(BuildContext context) {
     return PortalEntry(
       visible: _isOpened,
-      portal: Center(
-        child: GestureDetector(
-          onTapDown: (_) => _close(),
-        ),
+      portal: GestureDetector(
+        onTapDown: (_) => _close(),
       ),
       child: PortalEntry(
         visible: _isOpened,
