@@ -78,7 +78,20 @@ class _CupertinoPopupMenuButtonState extends State<CupertinoPopupMenuButton>
             borderRadius: BorderRadius.circular(8),
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: widget.actions,
+              children: widget.actions
+                  .map(
+                    (action) => CupertinoContextMenuAction(
+                      child: action.child,
+                      isDefaultAction: action.isDefaultAction,
+                      isDestructiveAction: action.isDestructiveAction,
+                      onPressed: () {
+                        _close();
+                        action.onPressed();
+                      },
+                      trailingIcon: action.trailingIcon,
+                    ),
+                  )
+                  .toList(),
             ),
           ),
         ),
@@ -110,31 +123,18 @@ class _CupertinoPopupMenuButtonState extends State<CupertinoPopupMenuButton>
   }
 }
 
-class CupertinoPopupMenuButtonAction extends StatelessWidget {
+class CupertinoPopupMenuButtonAction {
   const CupertinoPopupMenuButtonAction({
-    Key key,
     @required this.child,
     this.isDefaultAction = false,
     this.isDestructiveAction = false,
     this.onPressed,
     this.trailingIcon,
-  }) : super(key: key);
+  });
 
   final Widget child;
   final bool isDefaultAction;
   final bool isDestructiveAction;
   final VoidCallback onPressed;
   final IconData trailingIcon;
-
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoContextMenuAction(
-      key: key,
-      child: child,
-      isDefaultAction: isDefaultAction,
-      isDestructiveAction: isDestructiveAction,
-      onPressed: onPressed,
-      trailingIcon: trailingIcon,
-    );
-  }
 }
