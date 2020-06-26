@@ -1,6 +1,6 @@
 name: cupertino_menu
 description: Cupertino-style menu, which is introduced at iOS 14
-version: 0.0.3+1
+version: 0.0.3+2
 homepage: https://github.com/mono0926/cupertino_menu
 environment:
   sdk: ">=2.5.0 <3.0.0"

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_portal/flutter_portal.dart';
-import 'package:flutter/gestures.dart';
 
 class CupertinoPopupMenuButton extends StatefulWidget {
   const CupertinoPopupMenuButton({
@@ -149,11 +148,4 @@ class CupertinoPopupMenuButtonAction {
   final bool isDestructiveAction;
   final VoidCallback onPressed;
   final IconData trailingIcon;
-}
-
-class AllowMultipleGestureRecognizer extends TapGestureRecognizer {
-  @override
-  void rejectGesture(int pointer) {
-    acceptGesture(pointer);
-  }
 }
