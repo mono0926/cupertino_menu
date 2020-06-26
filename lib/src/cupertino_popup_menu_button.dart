@@ -65,7 +65,6 @@ class _CupertinoPopupMenuButtonState extends State<CupertinoPopupMenuButton>
       portal: Center(
         child: GestureDetector(
           onTapDown: (_) => _close(),
-          behavior: HitTestBehavior.translucent,
         ),
       ),
       child: PortalEntry(
