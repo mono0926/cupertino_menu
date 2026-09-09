@@ -1,6 +1,6 @@
 name: cupertino_menu
 description: An iOS 14 style Cupertino popup menu button widget powered by flutter_portal.
-version: 0.0.3+5
+version: 1.0.0
 homepage: https://github.com/mono0926/cupertino_menu
 environment:
   sdk: ^3.0.0
