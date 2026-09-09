@@ -1,33 +1,20 @@
 name: example
-description: A new Flutter application.
+description: An example app for cupertino_menu.
 version: 1.0.0+1
+publish_to: none
 environment:
-  sdk: ">=2.8.0 <3.0.0"
-  flutter: ">=1.17.0 <2.0.0"
+  sdk: ^3.0.0
 dependencies:
-  flutter:
-    sdk: flutter
+  cupertino_icons: ^1.0.8
   cupertino_menu:
     path: ..
-  collection:
-  cupertino_icons:
-  disposable_provider:
-  enum_to_string:
-  freezed_annotation:
-  json_annotation:
-  mono_kit: ^0.16.0-dev
-  provider:
-  rxdart:
-  vsync_provider:
-  flutter_portal:
+  flutter:
+    sdk: flutter
+  flutter_portal: ^1.1.4
+  simple_logger: ^1.10.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner:
-  freezed:
-  json_serializable:
-  pedantic_mono:
+  pedantic_mono: any
 flutter:
   uses-material-design: true
-#  assets:
-#    - assets/images/

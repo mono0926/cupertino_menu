@@ -1,3 +1,5 @@
-import 'run.dart';
+import 'package:flutter/material.dart';
 
-void main() => run();
+import 'app.dart';
+
+void main() => runApp(const App());

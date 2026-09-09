@@ -1,26 +1,32 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_portal/flutter_portal.dart';
 
+/// An iOS-style popup menu button that displays an action sheet menu
+/// anchored to the button when pressed.
 class CupertinoPopupMenuButton extends StatefulWidget {
+  /// Creates an iOS-style popup menu button.
   const CupertinoPopupMenuButton({
-    Key key,
-    @required this.actions,
-  }) : super(key: key);
+    super.key,
+    required this.actions,
+  });
 
+  /// The list of actions to show in the popup menu.
   final List<CupertinoPopupMenuButtonAction> actions;
 
   @override
-  _CupertinoPopupMenuButtonState createState() =>
+  State<CupertinoPopupMenuButton> createState() =>
       _CupertinoPopupMenuButtonState();
 }
 
 class _CupertinoPopupMenuButtonState extends State<CupertinoPopupMenuButton>
     with SingleTickerProviderStateMixin {
   var _isOpened = false;
-  AnimationController _animationController;
-  Animation<Matrix4> _transformAnimation;
-  Orientation _orientation;
+  late final AnimationController _animationController;
+  late final Animation<Matrix4> _transformAnimation;
+  Orientation? _orientation;
 
   @override
   void initState() {
@@ -35,7 +41,7 @@ class _CupertinoPopupMenuButtonState extends State<CupertinoPopupMenuButton>
         )
         .drive(
           Matrix4Tween(
-            begin: Matrix4.identity()..scale(0.01, 0.01),
+            begin: Matrix4.diagonal3Values(0.01, 0.01, 1),
             end: Matrix4.identity(),
           ),
         );
@@ -46,7 +52,7 @@ class _CupertinoPopupMenuButtonState extends State<CupertinoPopupMenuButton>
     super.didChangeDependencies();
     final orientation = MediaQuery.of(context).orientation;
     if (_orientation != null && _orientation != orientation) {
-      _close();
+      unawaited(_close());
     }
     _orientation = orientation;
   }
@@ -60,16 +66,19 @@ class _CupertinoPopupMenuButtonState extends State<CupertinoPopupMenuButton>
 
   @override
   Widget build(BuildContext context) {
-    return PortalEntry(
+    return PortalTarget(
       visible: _isOpened,
-      portal: GestureDetector(
-        onTapDown: (_) => _close(),
+      portalFollower: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTapDown: (_) => unawaited(_close()),
       ),
-      child: PortalEntry(
+      child: PortalTarget(
         visible: _isOpened,
-        childAnchor: Alignment.bottomRight,
-        portalAnchor: const Alignment(1.05, -0.95),
-        portal: AnimatedBuilder(
+        anchor: const Aligned(
+          follower: Alignment(1.05, -0.95),
+          target: Alignment.bottomRight,
+        ),
+        portalFollower: AnimatedBuilder(
           animation: _transformAnimation,
           builder: (context, child) {
             return Transform(
@@ -83,7 +92,7 @@ class _CupertinoPopupMenuButtonState extends State<CupertinoPopupMenuButton>
             decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.17),
+                  color: Colors.black.withValues(alpha: 0.17),
                   blurRadius: 80,
                   spreadRadius: 10,
                 ),
@@ -96,14 +105,14 @@ class _CupertinoPopupMenuButtonState extends State<CupertinoPopupMenuButton>
                 children: widget.actions
                     .map(
                       (action) => CupertinoContextMenuAction(
-                        child: action.child,
                         isDefaultAction: action.isDefaultAction,
                         isDestructiveAction: action.isDestructiveAction,
                         onPressed: () {
-                          _close();
-                          action.onPressed();
+                          unawaited(_close());
+                          action.onPressed?.call();
                         },
                         trailingIcon: action.trailingIcon,
+                        child: action.child,
                       ),
                     )
                     .toList(),
@@ -143,18 +152,29 @@ class _CupertinoPopupMenuButtonState extends State<CupertinoPopupMenuButton>
   }
 }
 
+/// An action item displayed in a [CupertinoPopupMenuButton].
 class CupertinoPopupMenuButtonAction {
+  /// Creates an action item for [CupertinoPopupMenuButton].
   const CupertinoPopupMenuButtonAction({
-    @required this.child,
+    required this.child,
     this.isDefaultAction = false,
     this.isDestructiveAction = false,
     this.onPressed,
     this.trailingIcon,
   });
 
+  /// The widget to display inside the action button (typically a [Text]).
   final Widget child;
+
+  /// Whether this action is the default action for the menu.
   final bool isDefaultAction;
+
+  /// Whether this action deletes data or performs an irreversible action.
   final bool isDestructiveAction;
-  final VoidCallback onPressed;
-  final IconData trailingIcon;
+
+  /// The callback that is called when the action is tapped.
+  final VoidCallback? onPressed;
+
+  /// An optional icon displayed at the trailing end of the action.
+  final IconData? trailingIcon;
 }
