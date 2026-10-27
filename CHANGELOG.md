@@ -1,3 +1,9 @@
+## 2.0.0 - 2026-10-27
+
+### Breaking Changes
+- Migrate from `package:flutter/cupertino.dart` and `package:flutter/material.dart` to standalone `package:cupertino_ui/cupertino_ui.dart` (`^1.0.0`) and `package:material_ui/material_ui.dart` (`^1.0.0`)
+- Require Dart `^3.13.0` and Flutter `>=3.47.0`
+
 ## 1.0.0
 
 - Migrate to Dart 3 and sound null safety
