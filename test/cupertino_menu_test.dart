@@ -1,12 +1,12 @@
 import 'package:cupertino_menu/cupertino_menu.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 
 void main() {
-  testWidgets(
-    'CupertinoPopupMenuButton renders and opens menu',
-    (tester) async {
+  testWidgets('CupertinoPopupMenuButton renders and opens menu', (
+    tester,
+  ) async {
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(

@@ -3,14 +3,17 @@ description: An example app for cupertino_menu.
 version: 1.0.0+1
 publish_to: none
 environment:
-  sdk: ^3.0.0
+  sdk: ^3.13.0
+  flutter: '>=3.47.0'
 dependencies:
   cupertino_icons: ^1.0.8
   cupertino_menu:
     path: ..
+  cupertino_ui: ^1.0.0
   flutter:
     sdk: flutter
   flutter_portal: ^1.1.4
+  material_ui: ^1.0.0
   simple_logger: ^1.10.0
 dev_dependencies:
   flutter_test:

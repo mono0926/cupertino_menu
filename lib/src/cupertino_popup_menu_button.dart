@@ -1,27 +1,27 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:flutter_portal/flutter_portal.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// An iOS-style popup menu button that displays an action sheet menu
 /// anchored to the button when pressed.
-class CupertinoPopupMenuButton extends StatefulWidget {
-  /// Creates an iOS-style popup menu button.
-  const CupertinoPopupMenuButton({
-    super.key,
-    required this.actions,
-  });
+class const CupertinoPopupMenuButton({
+  super.key,
 
   /// The list of actions to show in the popup menu.
-  final List<CupertinoPopupMenuButtonAction> actions;
+  required final List<CupertinoPopupMenuButtonAction> actions,
+}) extends StatefulWidget {
+  /// Creates an iOS-style popup menu button.
+  this;
 
   @override
   State<CupertinoPopupMenuButton> createState() =>
       _CupertinoPopupMenuButtonState();
 }
 
-class _CupertinoPopupMenuButtonState extends State<CupertinoPopupMenuButton>
+class _CupertinoPopupMenuButtonState()
+    extends State<CupertinoPopupMenuButton>
     with SingleTickerProviderStateMixin {
   var _isOpened = false;
   late final AnimationController _animationController;
@@ -153,28 +153,22 @@ class _CupertinoPopupMenuButtonState extends State<CupertinoPopupMenuButton>
 }
 
 /// An action item displayed in a [CupertinoPopupMenuButton].
-class CupertinoPopupMenuButtonAction {
-  /// Creates an action item for [CupertinoPopupMenuButton].
-  const CupertinoPopupMenuButtonAction({
-    required this.child,
-    this.isDefaultAction = false,
-    this.isDestructiveAction = false,
-    this.onPressed,
-    this.trailingIcon,
-  });
-
+class const CupertinoPopupMenuButtonAction({
   /// The widget to display inside the action button (typically a [Text]).
-  final Widget child;
+  required final Widget child,
 
   /// Whether this action is the default action for the menu.
-  final bool isDefaultAction;
+  final bool isDefaultAction = false,
 
   /// Whether this action deletes data or performs an irreversible action.
-  final bool isDestructiveAction;
+  final bool isDestructiveAction = false,
 
   /// The callback that is called when the action is tapped.
-  final VoidCallback? onPressed;
+  final VoidCallback? onPressed,
 
   /// An optional icon displayed at the trailing end of the action.
-  final IconData? trailingIcon;
+  final IconData? trailingIcon,
+}) {
+  /// Creates an action item for [CupertinoPopupMenuButton].
+  this;
 }

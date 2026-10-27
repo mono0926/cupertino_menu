@@ -1,10 +1,9 @@
 import 'package:cupertino_menu/cupertino_menu.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:example/util/util.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class const HomePage({super.key}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

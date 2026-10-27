@@ -27,7 +27,7 @@ description: >-
 
 ```dart
 import 'package:cupertino_menu/cupertino_menu.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:flutter_portal/flutter_portal.dart';
 
 void main() {
