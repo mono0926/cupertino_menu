@@ -1,3 +1,9 @@
+## 2.1.0 - 2026-11-12
+
+### Features
+- Support Flutter `>=3.50.0` and Dart `^3.14.0`
+- Upgrade `cupertino_ui` (`^1.1.6`), `material_ui` (`^1.11.0`), and `pedantic_mono` (`^1.39.0`)
+
 ## 2.0.0 - 2026-10-27
 
 ### Breaking Changes
